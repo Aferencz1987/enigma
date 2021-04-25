@@ -17,4 +17,10 @@ RSpec.describe Enigma do
 
     expect(enigma1.encrypt("Alex Ferencz", "170987")).to eq("hmlycllxltfe")
   end
+
+  it 'can decrypt' do
+    enigma1 = Enigma.new
+
+    expect(enigma1.decrypt(encrypt[:encryption])).to eq("Alex Ferencz")
+  end
 end

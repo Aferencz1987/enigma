@@ -12,7 +12,7 @@ class Enigma
   end
 
   def encrypt(user_input = ARGV, key = @encryption.key_generator, date = Time.now.strftime('%d%m%y'))
-    hash = Hash.new
+    @hash = Hash.new
     @user_input = "Alex Ferencz"
     offset_key = @encryption.create_offset(date)
     useable_user_input = @user_input.downcase.split('')
@@ -54,7 +54,12 @@ class Enigma
     hash[:key] = key
     hash[:date] = date
 
-    p hash
+    @hash
+  end
+
+  def decrypt(encrypt)
+    encrypt
+    require "pry"; binding.pry
   end
 end
 
