@@ -1,49 +1,20 @@
-require 'date'
 require 'time'
+require './lib/encryption'
 
 class Enigma
+  attr_reader :encryption
   def initialize
-    @key = []
     @first_offset_impacted = [97, 101, 105, 109, 113, 117, 121]
     @second_offset_impacted = [98, 102, 106, 110, 114, 118, 122]
     @third_offset_impacted = [99, 103, 107, 111, 115, 119, 32]
     @fourth_offset_impacted = [100, 104, 108, 112, 116, 120]
+    @encryption = Encryption.new
   end
 
-  def key_generator
-    key_step_one = number_sampler
-    @key = []
-      cons_keys = key_step_one.each_cons(2) do |chunk|
-        @key.push(chunk.join.to_i)
-      end
-      @key
-  end
-
-  def number_sampler
-    numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    key_step_one = numbers.sample(5)
-  end
-
-
-  def create_offset(date = Time.now.strftime('%d%m%y')) #29236554169
-    key_generator
-    squared_date = (date.to_i**2).to_s
-    last_4_of_squared_date = squared_date[-4..-1].to_i
-    index_count = 0
-    step_3 = @key.map do |key_element|
-      result = key_element + (last_4_of_squared_date.to_s[index_count]).to_i
-      index_count += 1
-      result
-    end
-    offset = step_3.map do |number|
-      number % 27
-    end
-    offset
-  end
-
-  def encrypt(user_input = ARGV, date = Time.now.strftime('%d%m%y'))
+  def encrypt(user_input = ARGV, key = @encryption.key_generator, date = Time.now.strftime('%d%m%y'))
+    hash = Hash.new
     @user_input = "Alex Ferencz"
-    offset_key = create_offset(date)
+    offset_key = @encryption.create_offset(date)
     useable_user_input = @user_input.downcase.split('')
     result = []
     useable_user_input.each do |letter|
@@ -79,7 +50,11 @@ class Enigma
         end
       end
     end
-    result.join
+    hash[:encryption] = result.join
+    hash[:key] = key
+    hash[:date] = date
+
+    p hash
   end
 end
 
