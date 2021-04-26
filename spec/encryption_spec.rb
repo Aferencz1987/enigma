@@ -8,6 +8,16 @@ RSpec.describe Encryption do
 
     expect(encryption1).to be_instance_of(Encryption)
   end
+  
+  it 'can sample numbers' do
+    encryption1 = Encryption.new
+    mock_numbers = [0, 0, 1, 1, 1]
+    allow(encryption1).to receive(:number_sampler) do
+      mock_numbers
+    end
+
+    expect(encryption1.number_sampler.include?(1)).to eq(true)
+    expect(encryption1.number_sampler.include?(4)).to eq(false)
 
   it 'can generate key' do
     encryption1 = Encryption.new
@@ -18,15 +28,6 @@ RSpec.describe Encryption do
     expect(encryption1.key_generator).to eq([3, 32, 24, 46])
   end
 
-  it 'can sample numbers' do
-    encryption1 = Encryption.new
-    mock_numbers = [0, 0, 1, 1, 1]
-    allow(encryption1).to receive(:number_sampler) do
-      mock_numbers
-    end
-
-    expect(encryption1.number_sampler.include?(1)).to eq(true)
-    expect(encryption1.number_sampler.include?(4)).to eq(false)
   end
 
   it 'can create offset' do

@@ -3,6 +3,11 @@ require 'time'
 class Encryption
   def initialize
   end
+  
+  def number_sampler
+    numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+    key_step_one = numbers.sample(5)
+  end
 
   def key_generator
     key_step_one = number_sampler
@@ -13,10 +18,6 @@ class Encryption
       @key
   end
 
-  def number_sampler
-    numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
-    key_step_one = numbers.sample(5)
-  end
 
   def create_offset(date = Time.now.strftime('%d%m%y')) #29236554169
     key_generator
