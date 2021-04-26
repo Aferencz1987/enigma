@@ -4,11 +4,6 @@ require './lib/encryption'
 class Enigma
   attr_reader :encryption
   def initialize
-    @first_offset_impacted = [97, 101, 105, 109, 113, 117, 121]
-    @second_offset_impacted = [98, 102, 106, 110, 114, 118, 122]
-    @third_offset_impacted = [99, 103, 107, 111, 115, 119, 32]
-    @fourth_offset_impacted = [100, 104, 108, 112, 116, 120]
-    @letters = ("a".."z").to_a << " "
     @encryption = Encryption.new
   end
 
@@ -17,36 +12,46 @@ class Enigma
     key_step_one = numbers.sample(5)
   end
 
-  def key_generator
-    key_step_one = number_sampler
-    @key = []
-      cons_keys = key_step_one.each_cons(2) do |chunk|
-        @key.push(chunk.join.to_i)
+  def key_generator(input = nil)
+    if input == nil
+      @key_step_one = number_sampler
+    else
+      @key_step_one = input.split('').map do |number|
+        number.to_i
       end
-      @key
+    end
   end
 
-  def create_offset(date = Time.now.strftime('%d%m%y')) #29236554169
-    key_generator
+  def create_offset(key, date = Time.now.strftime('%d%m%y')) #"67819097241"
+    key_1 = key_generator(key)
+    offset = []
+      key_1.each_cons(2) do |chunk|
+        offset.push(chunk.join.to_i)
+      end
     squared_date = (date.to_i**2).to_s
     last_4_of_squared_date = squared_date[-4..-1].to_i
     index_count = 0
-    step_3 = @key.map do |key_element|
+    combined_numbers = offset.map do |key_element|
       result = key_element + (last_4_of_squared_date.to_s[index_count]).to_i
       index_count += 1
       result
     end
-    offset = step_3.map do |number|
+    shift = combined_numbers.map do |number|
       number % 27
     end
-    offset
+    shift
   end
 
-  def encrypt(user_input = ARGV, key = key_generator.join, date = Time.now.strftime('%d%m%y'))
+  def encrypt(user_input, key = nil, date = nil)
+    if date == nil
+      date = Time.now.strftime('%d%m%y')
+    end
+    if key == nil
+      key = key_generator.join
+    end
     @hash = Hash.new
-    @user_input = "Alex Ferencz"
-    offset_key = create_offset(date)
-    usable_user_input = @user_input.downcase.split('')
+    offset_key = create_offset(key, date)
+    usable_user_input = user_input.downcase.split('')
     counter = 0
     encrypted_message = []
     usable_user_input.each do |letter|
@@ -57,17 +62,25 @@ class Enigma
         result = 96 + offset_key[counter]
         encrypted_message.push(result.chr)
         counter += 1
-      else
-        if result = (letter.ord + offset_key[counter]) < 123
-          result = (letter.ord + offset_key[counter])
-          encrypted_message.push(result.chr)
-          counter += 1
-
-        elsif
-          result = (letter.ord + offset_key[counter]) >= 123
+      elsif
+        if (letter.ord + offset_key[counter]) < 123
+          if (33..64).include?(letter.ord)
+            result = letter
+            counter += 1
+            encrypted_message.push(result.chr)
+          else
+            result = (letter.ord + offset_key[counter])
+            encrypted_message.push(result.chr)
+            counter += 1
+          end
+        elsif result = (letter.ord + offset_key[counter]) > 123
           result = (letter.ord + offset_key[counter]) - 26
           encrypted_message.push(result.chr)
           counter += 1
+        elsif (letter.ord + offset_key[counter]) == 123
+           result = 32
+           encrypted_message.push(result.chr)
+           counter += 1
         end
       end
     end
@@ -78,10 +91,15 @@ class Enigma
    @hash
   end
 
-  def decrypt(message, key = key_generator.join, date = Time.now.strftime('%d%m%y'))
+  def decrypt(message, key = nil, date = nil)
+    if date == nil
+      date = Time.now.strftime('%d%m%y')
+    end
+    if key == nil
+      key = key_generator.join
+    end
     @hash = Hash.new
-
-    offset_key = create_offset(date)
+    offset_key = create_offset(key, date)
     usable_message = message.downcase.split('')
     counter = 0
     decrypted_message = []
@@ -89,25 +107,35 @@ class Enigma
       if counter == 4
         counter = 0
       end
-      if result = (letter.ord - offset_key[counter]) > 96
+      if letter.ord == 32
+        result = (123 - offset_key[counter])
+        counter += 1
+        decrypted_message.push(result.chr)
+      elsif (letter.ord - offset_key[counter]) > 96
         result = (letter.ord - offset_key[counter])
         counter += 1
         decrypted_message.push(result.chr)
-      elsif result = (letter.ord - offset_key[counter]) < 97
-        if result = (letter.ord - offset_key[counter]) == 96
+      elsif (letter.ord - offset_key[counter]) < 97
+        if (33..64).include?(letter.ord)
+          result = letter
+          counter += 1
+          decrypted_message.push(result.chr)
+        elsif (letter.ord - offset_key[counter]) == 96
           result = 32
           counter += 1
           decrypted_message.push(result.chr)
-        else result = (letter.ord - offset_key[counter]) + 27
-          decrypted_message.push(result.chr)
+        else
+          result = (letter.ord - offset_key[counter]) + 26
           counter += 1
+          decrypted_message.push(result.chr)
         end
       end
     end
-    @hash[:encryption] = decrypted_message.join
+    @hash[:decryption] = decrypted_message.join
     @hash[:key] = key
     @hash[:date] = date
 
    @hash
   end
+
 end
