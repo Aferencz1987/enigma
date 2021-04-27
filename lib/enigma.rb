@@ -1,7 +1,6 @@
 require 'time'
 
 class Enigma
-  attr_reader :encryption
   def initialize
   end
 
