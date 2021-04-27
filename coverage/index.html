@@ -14,7 +14,7 @@
       <img src="./assets/0.12.3/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-26T23:26:30-06:00">2021-04-26T23:26:30-06:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2021-04-27T06:59:51-06:00">2021-04-27T06:59:51-06:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -384,7 +384,7 @@
 
             
 
-            <code class="ruby">  def create_offset(key, date = &quot;270421&quot;)#Time.now.strftime(&#39;%d%m%y&#39;))</code>
+            <code class="ruby">  def create_offset(key, date = Time.now.strftime(&#39;%d%m%y&#39;))</code>
           </li>
         </div>
       
@@ -626,7 +626,7 @@
 
             
 
-            <code class="ruby">      date = &quot;270421&quot;#Time.now.strftime(&#39;%d%m%y&#39;)</code>
+            <code class="ruby">      date = Time.now.strftime(&#39;%d%m%y&#39;)</code>
           </li>
         </div>
       
@@ -1143,7 +1143,7 @@
 
             
 
-            <code class="ruby">      date = &quot;270421&quot;#Time.now.strftime(&#39;%d%m%y&#39;)</code>
+            <code class="ruby">      date = Time.now.strftime(&#39;%d%m%y&#39;)</code>
           </li>
         </div>
       
@@ -2109,7 +2109,7 @@
 
             
 
-            <code class="ruby">    expect(enigma1.encrypt(&quot;Alex Ferencz!?&quot;)).to eq({:date=&gt;&quot;270421&quot;, #{:date=&gt;Time.now.strftime(&#39;%d%m%y&#39;)</code>
+            <code class="ruby">    expect(enigma1.encrypt(&quot;Alex Ferencz!?&quot;)).to eq({:date=&gt;Time.now.strftime(&#39;%d%m%y&#39;),</code>
           </li>
         </div>
       
@@ -2120,7 +2120,7 @@
 
             
 
-            <code class="ruby">                                                   :encryption=&gt;&quot;thussbumxjsu!?&quot;,</code>
+            <code class="ruby">                                                     :encryption=&gt;&quot;thussbumxjsu!?&quot;,</code>
           </li>
         </div>
       
@@ -2131,7 +2131,7 @@
 
             
 
-            <code class="ruby">                                                   :key=&gt;&quot;12121&quot;</code>
+            <code class="ruby">                                                     :key=&gt;&quot;12121&quot;</code>
           </li>
         </div>
       
@@ -2142,7 +2142,7 @@
 
             
 
-            <code class="ruby">                                                  })</code>
+            <code class="ruby">                                                    })</code>
           </li>
         </div>
       
@@ -2153,7 +2153,7 @@
 
             
 
-            <code class="ruby">    expect(enigma1.encrypt(&quot;Alex Ferencz!?&quot;, &quot;03246&quot;)).to eq({:date=&gt;&quot;270421&quot;, #{:date=&gt;Time.now.strftime(&#39;%d%m%y&#39;),</code>
+            <code class="ruby">    expect(enigma1.encrypt(&quot;Alex Ferencz!?&quot;, &quot;03246&quot;)).to eq({:date=&gt;Time.now.strftime(&#39;%d%m%y&#39;),</code>
           </li>
         </div>
       
@@ -2164,7 +2164,7 @@
 
             
 
-            <code class="ruby">                                                            :encryption=&gt;&quot;ksfqjmfkouds!?&quot;,</code>
+            <code class="ruby">                                                              :encryption=&gt;&quot;ksfqjmfkouds!?&quot;,</code>
           </li>
         </div>
       
@@ -2175,7 +2175,7 @@
 
             
 
-            <code class="ruby">                                                            :key=&gt;&quot;03246&quot;</code>
+            <code class="ruby">                                                              :key=&gt;&quot;03246&quot;</code>
           </li>
         </div>
       
@@ -2186,7 +2186,7 @@
 
             
 
-            <code class="ruby">                                                          })</code>
+            <code class="ruby">                                                            })</code>
           </li>
         </div>
       
@@ -2208,7 +2208,7 @@
 
             
 
-            <code class="ruby">                                                                      :encryption=&gt;&quot;hrhyglhsltf !?&quot;,</code>
+            <code class="ruby">                                                                        :encryption=&gt;&quot;hrhyglhsltf !?&quot;,</code>
           </li>
         </div>
       
@@ -2219,7 +2219,7 @@
 
             
 
-            <code class="ruby">                                                                      :key=&gt;&quot;03246&quot;</code>
+            <code class="ruby">                                                                        :key=&gt;&quot;03246&quot;</code>
           </li>
         </div>
       
@@ -2230,7 +2230,7 @@
 
             
 
-            <code class="ruby">                                                                    })</code>
+            <code class="ruby">                                                                      })</code>
           </li>
         </div>
       
@@ -2340,7 +2340,7 @@
 
             
 
-            <code class="ruby">    expect(enigma1.decrypt(&quot;ksfqjmfkouds!?&quot;, &quot;03246&quot;)).to eq({:date=&gt;&quot;270421&quot;, #{:date=&gt;Time.now.strftime(&#39;%d%m%y&#39;),</code>
+            <code class="ruby">    expect(enigma1.decrypt(&quot;ksfqjmfkouds!?&quot;, &quot;03246&quot;)).to eq({:date=&gt;Time.now.strftime(&#39;%d%m%y&#39;),</code>
           </li>
         </div>
       
@@ -2351,7 +2351,7 @@
 
             
 
-            <code class="ruby">                                                            :decryption=&gt;&quot;alex ferencz!?&quot;,</code>
+            <code class="ruby">                                                              :decryption=&gt;&quot;alex ferencz!?&quot;,</code>
           </li>
         </div>
       
@@ -2362,7 +2362,7 @@
 
             
 
-            <code class="ruby">                                                            :key=&gt;&quot;03246&quot;</code>
+            <code class="ruby">                                                              :key=&gt;&quot;03246&quot;</code>
           </li>
         </div>
       
@@ -2373,7 +2373,7 @@
 
             
 
-            <code class="ruby">                                                           })</code>
+            <code class="ruby">                                                            })</code>
           </li>
         </div>
       
@@ -2395,7 +2395,7 @@
 
             
 
-            <code class="ruby">                                                                      :decryption=&gt;&quot;alex ferencz!?&quot;,</code>
+            <code class="ruby">                                                                        :decryption=&gt;&quot;alex ferencz!?&quot;,</code>
           </li>
         </div>
       
@@ -2406,7 +2406,7 @@
 
             
 
-            <code class="ruby">                                                                      :key=&gt;&quot;03246&quot;</code>
+            <code class="ruby">                                                                        :key=&gt;&quot;03246&quot;</code>
           </li>
         </div>
       
@@ -2417,7 +2417,7 @@
 
             
 
-            <code class="ruby">                                                                    })</code>
+            <code class="ruby">                                                                        })</code>
           </li>
         </div>
       

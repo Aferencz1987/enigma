@@ -20,7 +20,7 @@ class Enigma
     end
   end
 
-  def create_offset(key, date = "270421")#Time.now.strftime('%d%m%y'))
+  def create_offset(key, date = Time.now.strftime('%d%m%y'))
     key_1 = key_generator(key)
     offset = []
       key_1.each_cons(2) do |chunk|
@@ -42,7 +42,7 @@ class Enigma
 
   def encrypt(user_input, key = nil, date = nil)
     if date == nil
-      date = "270421"#Time.now.strftime('%d%m%y')
+      date = Time.now.strftime('%d%m%y')
     end
     if key == nil
       key = key_generator.join
@@ -89,7 +89,7 @@ class Enigma
 
   def decrypt(message, key = nil, date = nil)
     if date == nil
-      date = "270421"#Time.now.strftime('%d%m%y')
+      date = Time.now.strftime('%d%m%y')
     end
     if key == nil
       key = key_generator.join

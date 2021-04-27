@@ -43,18 +43,18 @@ RSpec.describe Enigma do
       mock_key_step_one
     end
 
-    expect(enigma1.encrypt("Alex Ferencz!?")).to eq({:date=>"270421", #{:date=>Time.now.strftime('%d%m%y')
-                                                   :encryption=>"thussbumxjsu!?",
-                                                   :key=>"12121"
-                                                  })
-    expect(enigma1.encrypt("Alex Ferencz!?", "03246")).to eq({:date=>"270421", #{:date=>Time.now.strftime('%d%m%y'),
-                                                            :encryption=>"ksfqjmfkouds!?",
-                                                            :key=>"03246"
-                                                          })
+    expect(enigma1.encrypt("Alex Ferencz!?")).to eq({:date=>Time.now.strftime('%d%m%y'),
+                                                     :encryption=>"thussbumxjsu!?",
+                                                     :key=>"12121"
+                                                    })
+    expect(enigma1.encrypt("Alex Ferencz!?", "03246")).to eq({:date=>Time.now.strftime('%d%m%y'),
+                                                              :encryption=>"ksfqjmfkouds!?",
+                                                              :key=>"03246"
+                                                            })
     expect(enigma1.encrypt("Alex Ferencz!?", "03246", "170987")).to eq({:date=>"170987",
-                                                                      :encryption=>"hrhyglhsltf !?",
-                                                                      :key=>"03246"
-                                                                    })
+                                                                        :encryption=>"hrhyglhsltf !?",
+                                                                        :key=>"03246"
+                                                                      })
   end
 
   it 'can decrypt' do
@@ -64,13 +64,13 @@ RSpec.describe Enigma do
       mock_key_step_one
     end
 
-    expect(enigma1.decrypt("ksfqjmfkouds!?", "03246")).to eq({:date=>"270421", #{:date=>Time.now.strftime('%d%m%y'),
-                                                            :decryption=>"alex ferencz!?",
-                                                            :key=>"03246"
-                                                           })
+    expect(enigma1.decrypt("ksfqjmfkouds!?", "03246")).to eq({:date=>Time.now.strftime('%d%m%y'),
+                                                              :decryption=>"alex ferencz!?",
+                                                              :key=>"03246"
+                                                            })
     expect(enigma1.decrypt("hrhyglhsltf !?", "03246", "170987")).to eq({:date=>"170987",
-                                                                      :decryption=>"alex ferencz!?",
-                                                                      :key=>"03246"
-                                                                    })
+                                                                        :decryption=>"alex ferencz!?",
+                                                                        :key=>"03246"
+                                                                        })
   end
 end
